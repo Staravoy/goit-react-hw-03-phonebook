@@ -1,6 +1,13 @@
 import Proptypes from 'prop-types';
+import React, { Component } from 'react';
 
-export const Filter = ({ value, onChangeFilter }) => {
+class Filter extends Component {
+  setFilterValue = event => {
+    let value = event.currentTarget.value.toUpperCase();
+    this.props.setFilter(value);
+  };
+
+  render() {
   return (
     <>
       <label>
@@ -11,15 +18,15 @@ export const Filter = ({ value, onChangeFilter }) => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={value}
-          onChange={e => onChangeFilter(e.target.value)}
+          onChange={this.setFilter}
         />
       </label>
     </>
   );
-};
+}};
 
 Filter.propTypes = {
   value: Proptypes.string,
   onChangeFilter: Proptypes.func.isRequired,
 };
+export default Filter;
